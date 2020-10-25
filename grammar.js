@@ -7,7 +7,6 @@ module.exports = grammar({
   conflicts: ($) => [
     [$._case_of_tail2],
     [$.upper_case_qid, $.value_qid],
-    [$._more_case_of_branches],
     [$.function_call_expr],
     [$.field_access_expr],
   ],
@@ -514,15 +513,12 @@ module.exports = grammar({
       seq(
         $._virtual_open_section,
         field("branch", $.case_of_branch),
-        optional($._more_case_of_branches),
+        prec(5, optional($._more_case_of_branches)),
         optional($._virtual_end_section)
       ),
 
     _more_case_of_branches: ($) =>
-      prec.dynamic(
-        6,
-        repeat1(seq($._virtual_end_decl, field("branch", $.case_of_branch)))
-      ),
+      repeat1(seq($._virtual_end_decl, field("branch", $.case_of_branch))),
 
     case_of_branch: ($) =>
       seq(field("pattern", $.pattern), $.arrow, field("expr", $._expression)),

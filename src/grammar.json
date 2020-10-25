@@ -1941,16 +1941,20 @@
           }
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_more_case_of_branches"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
+          "type": "PREC",
+          "value": 5,
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_more_case_of_branches"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
         },
         {
           "type": "CHOICE",
@@ -1967,27 +1971,23 @@
       ]
     },
     "_more_case_of_branches": {
-      "type": "PREC_DYNAMIC",
-      "value": 6,
+      "type": "REPEAT1",
       "content": {
-        "type": "REPEAT1",
-        "content": {
-          "type": "SEQ",
-          "members": [
-            {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_virtual_end_decl"
+          },
+          {
+            "type": "FIELD",
+            "name": "branch",
+            "content": {
               "type": "SYMBOL",
-              "name": "_virtual_end_decl"
-            },
-            {
-              "type": "FIELD",
-              "name": "branch",
-              "content": {
-                "type": "SYMBOL",
-                "name": "case_of_branch"
-              }
+              "name": "case_of_branch"
             }
-          ]
-        }
+          }
+        ]
       }
     },
     "case_of_branch": {
@@ -3011,9 +3011,6 @@
     [
       "upper_case_qid",
       "value_qid"
-    ],
-    [
-      "_more_case_of_branches"
     ],
     [
       "function_call_expr"
